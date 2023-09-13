@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <!--body에 비어있는 div 생성함
+    이 div에는 ReactDOM이 React element들을 가져다 놓을곳 -->
+  </body>
+  <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+  <!--react.js impot 
+  React JS는 interactivity의 원동력 -->
+
+  <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+  <!--reactDOM impot함 
+    reactDOM은 react element들을 가져다가 html로 바꿔줌 -->
+    
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <!-- bable import 해줌-->
+
+  <script type="text/babel">
+    const root = document.getElementById("root");
+    const Title = (
+      <h3 id="title" onMouseEnter={() => console.log("mouse enter")}>
+        Hello I'm a title
+      </h3>
+    ); //새로운 방식(jsx 방식)
+    const Button = (
+      <button
+        style={{ backgroundColor: "tomato" }}
+        onClick={() => console.log("im Clicked")}
+      >
+        Click me
+      </button>
+    );//새로운 방식(jsx 방식)
+    //하지만 jsx방식으로 고쳐준뒤 브라우저에서 실행하면 오류발생
+    //브라우저가 jsx를 아직 이해할 수 없기 때문
+    //따라서 브라우저가 jsx를 이해할 수 있게 아래에 주석처리한 구식방법으로 변환해줘야함
+    //Babel 스크립트를 임포트 해줘야함
+    //Babel : jsx 코드를 브라우저가 이해할 수 있는 형태로 바꿔줌
+    //위에 바벨임포트해주고 현재 jsx 코드가 작성되어있는 스크립트에
+    //type="text/babel" 이라고 적어줌  <script type="text/babel">
+    
+
+    // const h3 = React.createElement(
+    // //createElement : element 생성
+    //   "h3",
+    //   {
+    //     onMouseEnter: () => console.log("mouse enter"),
+    //   },
+    //   //여기까지 props object
+
+    //   "hello I'm a h3"
+    // ); 오래된 방식 주석처리
+
+    // const btn = React.createElement(
+    //   "button",
+    //   {
+    //     onClick: () => console.log("i'am clicked"),
+    //     style: {
+    //       backgroundColor: "tomato",
+    //     },
+    //   },
+    //   //props obect에서 일부는 html로 가기도함
+    //   //ex : style: {backgroundColor: "tomato",}
+    //   "Click me"
+    // );오래된 방식 주석처리
+    //button : argument
+    //onClick: () => console.log("i'am clicked") : props(properties, 속성)
+    //property object(props)에 event listener를 등록할 수 있음
+    //바닐라자바스크립트처럼 button.addEventListener 이런식으로 할필요가없음
+    //"Click me" : content
+
+    const container = React.createElement("div", null, [Title, Button]);
+    //div의 content는 h3와 btn
+
+    ReactDOM.render(container, root);
+    //root div를 가져온 후(const root = document.getElementById("root");)
+    //ReactDOM.render를 함
+    //이 코드는 React element들을 root div 안에 보여주라는 뜻
+    //ReactDOM.render(container, root) : ReactDOM은 container element를 root div 안에 render 해줌
+    //property는 id, class, eventlistener 등등 이 있음
+  </script>
+</html>

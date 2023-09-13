@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Document</title>
+</head>
+
+<body>
+	<div id="root"></div>
+</body>
+<script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script type="text/babel">
+	function App() {
+		//const [minutes, setMinutes] = React.useState(0);
+		const [amount, setAmount] = React.useState(0);
+		const [flipped, setFlipped] = React.useState(false);
+		function onChange(event) {
+			//onChange : 데이터를 업데이트 해주는 역할
+			return setAmount(event.target.value);
+			//event가 발생했을 때, 값을 업데이트해주고, UI에 보여주는 것
+			/* event.target.value를 얻게 되는데 바로 input value임
+	   그 말은 const [minutes,의 데이터가 업데이트 된다는 뜻
+	   즉 input(value={minutes})이 업데이트 됨 */
+		}
+
+		const reset = () => setMinutes(0);
+		//const onFlip  = () => setFlipped(!flipped);
+		const onFlip = () => {
+			reset();
+			setFlipped((current) => !current);
+		};
+		
+		
+
+		return (
+			<div>
+				<h1 className="hi">Super Converter</h1>
+				<div>
+					<label htmlFor="minutes">Minutes</label>
+					<input
+						//value={minutes} //input에서 리스닝하는 데이터
+						value={flipped ? amount*60 : amount}
+						/* 
+		Input의 value를 연결시켜주는 이유 : input값을 외부에서도 수정해주기 위해
+		ex : reset 버튼을 누른다고 해보자 그럼 input 내용을 다 지울 수 있어.
+		*/
+						id="minutes"
+						placeholder="Minutes"
+						type="number"
+						onChange={onChange} // : event를 들어주는 것
+						//disabled={flipped === true}
+						disabled={flipped}
+					/>
+				</div>
+				{/* input은 스스로 업데이트를 함
+              change 이벤트가 일어났을 때 즉, 
+              사용자가 input에 뭔가를 써넣을 때 onChange 함수가 실행됨
+              event.target.value를 얻게 되는데 바로 input value 이지.
+              event.target.value == input value
+
+              onChange={onChange} : 
+              onChange 함수 : 데이터를 업데이트 해주는 역할
+              예를 들어, 우리가 onChange를 삭제한다고 해도
+              여전히 state에 연결된 input값(value={minutes})은 남겨져 있음 */}
+				{/*<h4>You want to conver {minutes}</h4>*/}
+
+				<div>
+					<label htmlFor="hours">Hours</label>
+					<input
+						//value={flipped ? minutes : Math.round(minutes / 60)}
+						value={flipped ? amount : Math.round(amount / 60)}
+						id="hours"
+						placeholder="Hours"
+						type="number"
+						//disabled={true}
+						//disabled={flipped === false}
+						disabled={!flipped}
+						onChange={onChange}
+					/>
+				</div>
+				<button onClick={reset}>Reset</button>
+				<button onClick={onFlip}>Flip</button>
+			</div>
+		);
+	}
+	const root = document.getElementById("root");
+	ReactDOM.render(<App />, root);
+</script>
+
+</html>

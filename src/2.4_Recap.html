@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <!--body에 비어있는 div 생성함
+    이 div에는 ReactDOM이 React element들을 가져다 놓을곳 -->
+  </body>
+  <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+  <!--react.js impot 
+  React JS는 interactivity의 원동력 -->
+
+  <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+  <!--reactDOM impot함 
+    reactDOM은 react element들을 가져다가 html로 바꿔줌 -->
+  
+  <script>
+    const root = document.getElementById("root");
+    const h3 = React.createElement(
+    //createElement : element 생성
+      "h3",
+      {
+        onMouseEnter: () => console.log("mouse enter"),
+      },
+      //여기까지 props object
+
+      "hello I'm a h3"
+    );
+    const btn = React.createElement(
+      "button",
+      {
+        onClick: () => console.log("i'am clicked"),
+        style: {
+          backgroundColor: "tomato",
+        }
+      },
+      //props obect에서 일부는 html로 가기도함
+      //ex : style: {backgroundColor: "tomato",}
+
+      "Click me"
+    );
+    //button : argument
+    //onClick: () => console.log("i'am clicked") : props(properties, 속성)
+    //property object(props)에 event listener를 등록할 수 있음
+    //바닐라자바스크립트처럼 button.addEventListener 이런식으로 할필요가없음
+    //"Click me" : content
+
+    const container = React.createElement("div", null, [h3, btn]);
+    //div의 content는 h3와 btn
+
+    ReactDOM.render(container, root);
+    //root div를 가져온 후(const root = document.getElementById("root");) 
+    //ReactDOM.render를 함 
+    //이 코드는 React element들을 root div 안에 보여주라는 뜻
+    //ReactDOM.render(container, root) : ReactDOM은 container element를 root div 안에 render 해줌
+    //property(props)는 id, class, eventlistener 등등 이 있음
+  </script>
+</html>

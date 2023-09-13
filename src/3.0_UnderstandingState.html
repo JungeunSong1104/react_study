@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <script type="text/babel">
+    const root = document.getElementById("root");
+    let counter = 0;
+    
+    /* 카운트를 올려주는 함수 */
+    function countUp() {
+      counter = counter + 1;//1. 온클릭했을때 카운터가 올라가고
+      render();//아래 코드가 담긴 함수를 호출
+      //ReactDOM.render(<Container />, root);//2. 컨테이너를 렌더링하고
+      //1,2번이 온클릭 될때마다 반복되니까 따로 햠수를 만들어주자 => render()
+    } 
+
+    /* 리렌더링 함수*/
+    function render() {
+        ReactDOM.render(<Container />, root);
+        //render 함수는 Container 컴포넌트를 root에 담아줌
+    }
+    function Container() {
+      return (
+        <div>
+          <h3>Total clicks : {counter}</h3>
+          {/* 변수들을 JSX에 전달하는 방법(변수를 연결해주는 것) : 
+            중괄호를 안에 변수 이름을 담아주면 됨*/}
+          <button onClick={countUp}>
+            {/*버튼에 이벤트리스너 달아줌 */}
+            Click me
+          </button>
+        </div>
+      );
+    }
+    /* 여기까지 했을 때 카운터 수는 계속 올라가지만 ui가 업데이트 되지 않음
+    콘솔로그 찍어보면 카운트업 되는걸 확인할수있음 
+    함수라서 바로 실행되진 않음 
+    현재 코드 어디에도 ui를 새로고침해주고 있지 않음 
+    Container를 한번 렌더링해주는게 전부
+    따라서 Container를 리렌더링해서 다시 보여줘야함 
+    한마디로 우리가 countUp을 호출할 때마다
+    ReactDOM.render(<Container />, root) 코드를 다시 호출하고 싶은 것
+    countUp 함수안에서 이 코드를 호출한다면 counter가 1이 증가하고
+    그리고 나서 Container를 리렌더링해주면
+    <h3>Total clicks : {counter}</h3>의 {counter}는 1이겠지 */
+
+    render();
+    //ReactDOM.render(<Container />, root);
+    //페이지 로드했을때 이 코드가 바로 실행되는것 
+  </script>
+</html>
